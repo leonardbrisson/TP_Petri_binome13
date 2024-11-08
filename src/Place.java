@@ -10,4 +10,8 @@ public class Place {
 	public void setTokens(int n) {
 		this.tokens = n;
 	}
+
+	public void refresh(int t) {
+		tokens += t;
+	}
 }

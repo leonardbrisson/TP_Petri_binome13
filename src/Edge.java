@@ -1,7 +1,9 @@
+import java.util.LinkedList;
 
 public class Edge {
 	
-	private int weight;
+	protected int weight;
+	
 	
 	public Edge(int weight) {
 		this.weight = weight;
@@ -10,4 +12,9 @@ public class Edge {
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
+	
+	public int getWeight() {
+		return this.weight;
+	}
+
 }

@@ -21,13 +21,14 @@ public class PetriNet implements IPetriNet{
 		if (typeOfEdge == "in") {
 			boolean test = false;
 			for (EdgeIn ei : edgesIn) {
-				if (ei.p == p && ei.t == t) {
+				if (ei.getP() == p && ei.getT() == t) {
 					test = true;
 				}
 			}
 			if (test == false) {
 				EdgeIn e = new EdgeIn(weight,t,p);
 				this.edgesIn.add(e);
+				t.getEdgesIn().add(e);
 			}
 			else {
 				System.out.println("Cet arc existe déjà!");
@@ -37,13 +38,14 @@ public class PetriNet implements IPetriNet{
 		if (typeOfEdge == "out") {
 			boolean test = false;
 			for (EdgeOut eo : edgesOut) {
-				if (eo.p == p && eo.t == t) {
+				if (eo.getP() == p && eo.getT() == t) {
 					test = true;
 				}
 			}
 			if (test == false) {
 				EdgeOut e = new EdgeOut(weight,t,p);
 				this.edgesOut.add(e);
+				t.getEdgesOut().add(e);
 			}
 			else {
 				System.out.println("Cet arc existe déjà!");
@@ -69,7 +71,12 @@ public class PetriNet implements IPetriNet{
 	}
 	
 	public void step(Transition t) {
-		
+		if (t.isFireable()) {
+			t.fire();
+		}
+		else {
+			System.out.println("Cette transition n'est pas tirable");
+		}
 	}
 	
 	

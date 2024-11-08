@@ -1,8 +1,15 @@
 
 public class EmptyingEdge extends EdgeIn{
-
-	public EmptyingEdge(int weight,Transition t, Place p) {
-		super(weight,t,p);
+	
+	public EmptyingEdge(Transition t, Place p) {
+		super(p.getTokens(),t,p);
 	}
-
+	
+	public void autoWeight() {
+		weight = p.getTokens();
+	}
+	
+	public boolean isActive() {
+		return (p.getTokens() != 0);
+	}
 }
