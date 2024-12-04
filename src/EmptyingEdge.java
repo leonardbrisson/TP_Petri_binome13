@@ -8,8 +8,9 @@ public class EmptyingEdge extends EdgeIn{
      *
      * @param t La transition associée à cet arc.
      * @param p La place associée à cet arc.
+	 * @throws PetriExceptions 
      */
-	public EmptyingEdge(Transition t, Place p) {
+	public EmptyingEdge(Transition t, Place p) throws PetriExceptions {
 		super(p.getTokens(),t,p);// Appel au constructeur d'EdgeIn avec le nombre de jetons actuel
 	}
 	

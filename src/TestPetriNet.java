@@ -7,7 +7,9 @@ import org.junit.Test;
 public class TestPetriNet {
 	private PetriNet PN = new PetriNet();
 	
-	public static void main(String[] args) {
+	public void main(String[] args) {
+		this.TestCreationPlace();
+		this.TestAddEdge();
 		
 	}
 	
@@ -35,12 +37,3 @@ public class TestPetriNet {
 		}
 		}
 }
-
-
-//try {
-//	Place p = new Place(0);
-	// First test assertion
-//	assertEquals(true, new Place(0).equals(p));
-//} catch (InvalidPlaceException e) {
-	// If here, there is a problem with the constructor code
-//	assertFalse("A place with no tokens should have been created.", false);

@@ -8,8 +8,9 @@ public class EdgeOut extends Edge {
      * @param weight Le poids de l'arc (doit être positif).
      * @param t La transition associée à cet arc.
      * @param p La place associée à cet arc.
+	 * @throws PetriExceptions 
      */
-	public EdgeOut(int weight, Transition t,Place p) {
+	public EdgeOut(int weight, Transition t,Place p) throws PetriExceptions {
 		super(weight);
 		this.setP(p);
 		this.setT(t);

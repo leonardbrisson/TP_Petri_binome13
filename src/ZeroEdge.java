@@ -8,8 +8,9 @@ public class ZeroEdge extends EdgeIn{
      * @param weight Le poids de l'arc.
      * @param t La transition associée à l'arc entrant.
      * @param p La place associée à l'arc entrant.
+	 * @throws PetriExceptions 
      */
-	public ZeroEdge(int weight, Transition t, Place p) {
+	public ZeroEdge(int weight, Transition t, Place p) throws PetriExceptions {
 		super(weight,t,p);// Appelle le constructeur de la classe parente (EdgeIn)
 	}
 	

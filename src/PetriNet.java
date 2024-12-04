@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Random;
 
 public class PetriNet implements IPetriNet{
 	
@@ -35,13 +36,14 @@ public class PetriNet implements IPetriNet{
      * Ajoute des jetons à une place existante.
      * @param p La place à laquelle ajouter les jetons.
      * @param n Le nombre de jetons à ajouter (doit être positif).
+	 * @throws PetriExceptions 
      */
-	public void addTokens(Place p, int n) {
+	public void addTokens(Place p, int n) throws PetriExceptions {
 		if (n>=0) {
 			p.setTokens(p.getTokens()+n);
 		}
 		else {
-			System.out.println("le nombre de jetons à ajouter doit être positif");
+			throw new PetriExceptions("le nombre de jetons à ajouter doit être positif");
 		}
 	}
 	
@@ -49,14 +51,14 @@ public class PetriNet implements IPetriNet{
      * Ajoute un arc entre une transition et une place.
      * @param t La transition associée à l'arc.
      * @param p La place associée à l'arc.
-     * @param weight Le poids de l'arc (doit être strictement positif).
+     * @param weight Le poids de l'arc (doit être positif).
      * @param typeOfEdge Le type d'arc ("in" pour entrant, "out" pour sortant).
-     * @return L'arc créé ou null si l'ajout échoue.
+     * @return L'arc créé ou une exception si l'ajout échoue.
+	 * @throws PetriExceptions 
      */
-	public Edge addEdge(Transition t, Place p, int weight, String typeOfEdge) {
+	public Edge addEdge(Transition t, Place p, int weight, String typeOfEdge) throws PetriExceptions {
 		if (weight < 0) {
-			System.out.println("le poid doit être positif");
-			return null;
+			throw new PetriExceptions("le poid doit être positif");
 		}
 		if (typeOfEdge == "in") {// Arc entrant
 			boolean test = false;
@@ -72,8 +74,7 @@ public class PetriNet implements IPetriNet{
 				return e;
 			}
 			else {
-				System.out.println("Cet arc existe déjà!");
-				return null;
+				throw new PetriExceptions("Cet arc existe déjà!");
 			}
 		}
 	
@@ -97,8 +98,7 @@ public class PetriNet implements IPetriNet{
 			}
 		}
 		else {// Si le type d'arc n'est pas valide
-			System.out.println("Ce typeOfEdge n'existe pas");
-			return null;
+			throw new PetriExceptions("Ce typeOfEdge n'existe pas");
 		}
 		
 	}
@@ -107,13 +107,14 @@ public class PetriNet implements IPetriNet{
      * Modifie le poids d'un arc existant.
      * @param e L'arc à modifier.
      * @param weight Le nouveau poids (doit être positif).
+	 * @throws PetriExceptions 
      */
-	public void setWeight(Edge e, int weight) {
+	public void setWeight(Edge e, int weight) throws PetriExceptions {
 		if (weight>=0) {
 			e.setWeight(weight);
 		}
 		else {
-			System.out.println("le nouveau poids doit être positif");
+			throw new PetriExceptions("le nouveau poids doit être positif");
 		}
 	}
 	
@@ -122,14 +123,15 @@ public class PetriNet implements IPetriNet{
      * @param p La place cible.
      * @param n Le nombre de jetons à retirer.
      *          Doit être inférieur ou égal au nombre de jetons présents.
+	 * @throws PetriExceptions 
      */
-	public void recoverTokens(Place p, int n) {
+	public void recoverTokens(Place p, int n) throws PetriExceptions {
 		int value = p.getTokens();
 		if (value >= n) {
 			p.setTokens(value-n);
 		}
 		else {
-			System.out.println("Il y a moins de "+ n +" tokens dans cette place.");
+			throw new PetriExceptions("Il y a moins de "+ n +" tokens dans cette place.");
 		}
 	}
 	
@@ -137,15 +139,20 @@ public class PetriNet implements IPetriNet{
      * Exécute une transition si elle est tirable.
      * Met à jour l'état du réseau en consommant et produisant des jetons.
      * @param t La transition à exécuter.
+	 * @throws PetriExceptions 
      */
-	public void step(Transition t) {
+	public void step(Transition t) throws PetriExceptions {
 		if (t.isFireable()) {
 			t.fire();
 		}
 		else {
-			System.out.println("Cette transition n'est pas tirable");
+			throw new PetriExceptions("Cette transition n'est pas tirable");
 		}
 	}
 	
-	
+	public void step() throws PetriExceptions {
+		Random random = new Random();
+		Transition transition = transitions.get(random.nextInt(transitions.size()));
+		step(transition);
+	}
 }
